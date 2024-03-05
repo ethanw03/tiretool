@@ -9,6 +9,15 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+model TireSize {
+  id          Int     @id @default(autoincrement())
+  rimSize     Int
+  width       Int
+  aspectRatio Int
+
+  @@unique([rimSize, width, aspectRatio])
 }

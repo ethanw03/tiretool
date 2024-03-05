@@ -2,7 +2,9 @@
   "name": "tiretool",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
+    "seed": "node --loader ts-node/esm prisma/seed.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -24,6 +26,7 @@
     "postcss": "^8",
     "prisma": "^5.10.2",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }
