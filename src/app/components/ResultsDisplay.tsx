@@ -9,7 +9,7 @@ interface ResultsDisplayProps {
 const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results }) => {
   return (
     <div>
-      <h2>Equivalent Tire Sizes</h2>
+      <h2 className='flex justify-center mt-10'>Equivalent Tire Sizes</h2>
       {results.map((result, index) => (
         <div key={index}>
           {`Rim Size: ${result.rimSize}, Width: ${result.width}, Aspect Ratio: ${result.aspectRatio}`}

@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Libre_Franklin } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const libreFranklin = Libre_Franklin({
+  subsets: ['latin'],
+  display: 'swap'
+})
+
 
 export const metadata: Metadata = {
-  title: "Ethans Tire Tool",
+  title: "Ethan's Tire Tool",
   description: "CT on top bb",
 };
 
@@ -16,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={libreFranklin.className}>{children}</body>
     </html>
   );
 }

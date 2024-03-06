@@ -1,8 +1,11 @@
-// src/app/page/index.tsx
+'use client'
+
 import React, { useState } from 'react';
 import TireSizeSelector from './components/TireSizeSelector';
 import ResultsDisplay from './components/ResultsDisplay';
 import { calculateEquivalentSizes, TireSize } from './util/calculateEquivalentSizes';
+import './globals.css';
+import tireLogo from '../../public/tireLogo.svg'
 
 const HomePage = () => {
   const [results, setResults] = useState<TireSize[]>([]);
@@ -12,12 +15,14 @@ const HomePage = () => {
     setResults(equivalents);
   };
 
-  return (
-    <div>
-      <h1>Tire Size Calculator</h1>
+  return (<div>
+    <div className='bg-wheat h-screen w-screen  font-sans'>
+      <h1 className='flex justify-center py-5'>
+        
+      </h1>
       <TireSizeSelector onSelect={handleSelect} />
       <ResultsDisplay results={results} />
-    </div>
+    </div></div>
   );
 };
 
