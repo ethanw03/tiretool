@@ -48,7 +48,8 @@ export class Database {
                 name VARCHAR(100),
                 lastName VARCHAR(100),
                 email VARCHAR(100),
-                password VARCHAR(100)
+                password VARCHAR(100),
+                is_admin BOOLEAN,
             )
         `;
         this.client.query(query2, (err, res) => {
@@ -60,7 +61,7 @@ export class Database {
         });
     }
 
-
+    // casting functions 
     toTire(x: any): Tire {
         return {
             id: x.id,
@@ -70,6 +71,7 @@ export class Database {
         } as Tire;
     }
 
+    // adding 
     addTire(a: Tire, callback: (id: number) => void, error: (err: any) => void): void {
     const query = `INSERT INTO public.Tires(
             rimSize, 
@@ -89,7 +91,7 @@ export class Database {
         });
     }
 
-
+    // update
     updateTire(a: Tire) {
         const query = `UPDATE public.Tires
         SET rimSize = $1, 
@@ -111,6 +113,7 @@ export class Database {
         });
     }
 
+    // getters
     getTires(callback: (tires: Tire[]) => void, error: (err: any) => void): void {
         const query = `SELECT * FROM public.Tires`;
         this.client.query(query, (err, res) => {
@@ -133,13 +136,11 @@ export class Database {
                 error(err);
             } else {
                 console.log('Tire by id');
-                const tires = res.rows.map((x) => this.toTire(x));
-                callback(tires);
+                const tire = res.rows.map((x) => this.toTire(x));
+                console.log(tire);
+                callback(tire);
             }
         });
     }
-
-    
-    
 }
 

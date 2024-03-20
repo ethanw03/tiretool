@@ -11,9 +11,16 @@ type Tire = {
 function App() {
   const [tire, setTire] = useState<Tire>({ rimSize: '', width: '', aspectRatio: '' });
   const [tireList, setTireList] = useState<Tire[]>([]);
+  const [singleTire, setSingleTire] = useState<Tire | null>(null);
+  const [tireId, setTireId] = useState<number | undefined>(); 
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTire({ ...tire, [e.target.name]: e.target.value });
+  };
+
+  const handleTireIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTireId(parseInt(e.target.value)); // Update tireId state
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,6 +42,19 @@ function App() {
       console.error('Error adding tire', error);
     }
   };
+
+  const getSingleTire = async () => {
+    if (!tireId) return; // Check if tireId is defined
+    try {
+      const response = await fetch(`/api/tires/${tireId}`);
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      setSingleTire(data[0]); // Set singleTire with the first element of the array
+    } catch (error) {
+      console.error('Error fetching tire', error);
+    }
+  };
+
   
   const handleFetchTires = async () => {
     try {
@@ -75,11 +95,11 @@ function App() {
           onChange={handleInputChange}
           required
         />
+        <br></br>
         <button type="submit">Add Tire</button>
       </form>
-      <button onClick={handleFetchTires}>Show Tires</button>
-
       <h2>Tire List</h2>
+      <button onClick={handleFetchTires}>Show Tires</button>
       <ul>
       {tireList.map((t) => (
         <li key={t.id}>
@@ -87,11 +107,29 @@ function App() {
           <br></br>
           <br></br>
         </li>
-        
       ))}
-
       </ul>
- 
+
+      <h2> Get tire by id </h2>
+      <form>
+        <input
+          type="number"
+          name="id"
+          placeholder="Tire ID"
+          onChange={handleTireIdChange} // Use handleTireIdChange here
+          required
+        />
+        <button type="button" onClick={getSingleTire}>Get Tire</button>
+      </form>
+      {singleTire && (
+        <div>
+          <h3>Single Tire Details</h3>
+          <p>Tire ID: {singleTire.id}</p>
+          <p>Rim Size: {singleTire.rimSize}</p>
+          <p>Width: {singleTire.width}</p>
+          <p>Aspect Ratio: {singleTire.aspectRatio}</p>
+        </div>
+      )}
 
     </div>
   );
