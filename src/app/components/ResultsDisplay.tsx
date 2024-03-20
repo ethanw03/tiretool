@@ -1,6 +1,6 @@
-// src/app/components/ResultsDisplay.tsx
+// src/components/ResultsDisplay.tsx
 import React from 'react';
-import { TireSize } from '../util/calculateEquivalentSizes';
+import { TireSize } from '../util/calculateEquivalentSizes'; // Adjust the import path as needed
 
 interface ResultsDisplayProps {
   results: TireSize[];
